@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Capture screenshots of the current page",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && cp src/*.{html,json,png} dist/"
   },
   "author": "Biel Simon",
   "license": "MIT",
@@ -11,8 +12,7 @@
     "type": "git",
     "url": "https://github.com/chibat/chrome-extension-typescript-starter.git"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/chrome": "0.0.188",
     "typescript": "^4.4.3"
