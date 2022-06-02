@@ -21,12 +21,29 @@ chrome.runtime.onInstalled.addListener(async () => {
   // or return a promise. Since we're inside an async function, we can await the resolution of the
   // promise returned by the tabs.create call. See the following link for more info on async/await.
   // https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await
-  let tab = await chrome.tabs.create({ url });
+  // let tab = await chrome.tabs.create({ url });
 
   // Finally, let's log the ID of the newly created tab using a template literal.
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
   //
   // To view this log message, open chrome://extensions, find "Hello, World!", and click the
   // "service worker" link in the card to open DevTools.
-  console.log(`Created tab ${tab.id}`);
+  // console.log(`Created tab ${tab.id}`);
 });
+
+let takeScreenshot = async () => {
+  console.log(`clicked`);
+  let tab = await chrome.tabs.query({ active: true, currentWindow: true });
+  console.log(`active tab`, tab);
+  let tabId = tab[0].windowId;
+  let screenshot = await chrome.tabs.captureVisibleTab(tabId, { format: "png" });
+  // Open in new tab
+  let newTab = await chrome.tabs.create({ url: screenshot, active: true });
+  console.log(`screenshot`, screenshot);
+}
+
+chrome.action.onClicked.addListener((tab) => {
+  console.log(`tab`, tab);
+  takeScreenshot();
+});
+

@@ -8,5 +8,8 @@
   },
   "action": {
     "default_icon": "icon.png"
-  }
+  },
+  "permissions": [
+    "activeTab"
+  ]
 }
