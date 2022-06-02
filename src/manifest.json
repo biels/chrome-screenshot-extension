@@ -17,7 +17,9 @@
     }
   ],
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "<all_urls>",
+    "tabs"
 
   ]
 }
