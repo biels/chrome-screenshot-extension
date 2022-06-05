@@ -1,10 +1,10 @@
 {
-  "name": "Screenshot Extension",
+  "name": "Screenshot Extension v3",
   "description": "Take a screenshot of the current page",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
-    "service_worker": "main.js"
+    "service_worker": "background.js"
   },
   "action": {
     "default_icon": "icon.png"
