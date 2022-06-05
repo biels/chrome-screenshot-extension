@@ -10,7 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm ci
-      - run: ls -la
       - name: Build v2 and v3
         run: npm run build
       - name: Upload v2

@@ -28,7 +28,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {from: ".", to: ".", context: "public"},
-        {from: "./manifest_v2.json", to: "./manifest.json", context: "manifest"}
+        {from: `./manifest_${process.env.MANIFEST_VERSION}.json`, to: "./manifest.json", context: "manifest"}
       ],
       options: {},
     }),
