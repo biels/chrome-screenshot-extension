@@ -18,6 +18,7 @@ jobs:
           path: dist
 
   release_extension:
+    if: 'false'
     needs: [build_extension]
     runs-on: ubuntu-latest
     steps:
@@ -40,10 +41,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          tag_name: v${{ github.sha }}
-          release_name: Release ${{ github.sha }}
+          tag_name: v${{ github.run_number }}
+          release_name: Release ${{ github.run_number }}
           body: |
-            Release ${{ github.run_number }} for ref ${{ github.ref }}
+            Release ${{ github.run_number }}
           draft: false
           prerelease: false
       - name: Upload Release Asset
