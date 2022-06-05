@@ -65,7 +65,7 @@ jobs:
           draft: false
           prerelease: false
       - name: Upload v2 Release Asset
-        id: upload-release-asset
+        id: upload-release-asset-v2
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -75,7 +75,7 @@ jobs:
           asset_name: extension-manifest-v2.zip
           asset_content_type: application/zip
       - name: Upload v3 Release Asset
-        id: upload-release-asset
+        id: upload-release-asset-v3
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
