@@ -2,7 +2,6 @@ const webpack = require("webpack");
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const srcDir = path.join(__dirname, "..", "src");
-
 module.exports = {
   entry: {
     background: path.join(srcDir, 'background.ts'),
@@ -32,5 +31,7 @@ module.exports = {
       ],
       options: {},
     }),
+    // MANIFEST_VERSION can be v2 or v3 at build time
+    new webpack.EnvironmentPlugin(['MANIFEST_VERSION']),
   ],
 };
