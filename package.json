@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "Capture screenshots of the current page",
   "scripts": {
-    "dev": "rimraf dist && webpack --config webpack/webpack.dev.js --watch",
-    "dev:v2": "cross-env MANIFEST_VERSION=v2 npm run dev",
-    "dev:v3": "cross-env MANIFEST_VERSION=v3 npm run dev",
+    "dev:v2": "cross-env MANIFEST_VERSION=v2 webpack --config webpack/webpack.dev.js --watch",
+    "dev:v3": "cross-env MANIFEST_VERSION=v3 webpack --config webpack/webpack.dev.js --watch",
+    "dev": "rimraf dist && run-p dev:v2 dev:v3",
+    "build:v2": "cross-env MANIFEST_VERSION=v2 webpack --config webpack/webpack.prod.js",
+    "build:v3": "cross-env MANIFEST_VERSION=v3 webpack --config webpack/webpack.prod.js",
+    "build": "rimraf dist && run-p build:v2 build:v3",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Biel Simon",
@@ -17,14 +20,15 @@
   "dependencies": {},
   "devDependencies": {
     "@types/chrome": "0.0.188",
-    "typescript": "^4.4.3",
     "copy-webpack-plugin": "^11.0.0",
+    "cross-env": "^7.0.3",
     "glob": "^8.0.3",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
     "ts-loader": "^9.3.0",
+    "typescript": "^4.4.3",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.9.2",
-    "webpack-merge": "^5.8.0",
-    "rimraf": "^3.0.2",
-    "cross-env": "^7.0.3"
+    "webpack-merge": "^5.8.0"
   }
 }

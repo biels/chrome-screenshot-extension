@@ -11,11 +11,18 @@ jobs:
       - uses: actions/checkout@v3
       - run: npm ci
       - run: ls -la
-      - run: npm run build
-      - uses: actions/upload-artifact@v3
+      - name: Build v2 and v3
+        run: npm run build
+      - name: Upload v2
+        uses: actions/upload-artifact@v3
         with:
-          name: extension-dist
-          path: dist
+          name: extension-manifest-v2
+          path: dist/v2
+      - name: Upload v3
+        uses: actions/upload-artifact@v3
+        with:
+          name: extension-manifest-v3
+          path: dist/v3
 
   release_extension:
     if: 'false'

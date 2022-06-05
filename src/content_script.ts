@@ -22,3 +22,9 @@ s.fontFamily = 'sans-serif';
 console.log(`el`, el, document.body);
 document.body.appendChild(el)
 // alert(`Hello from ${process.env.MANIFEST_VERSION}`);
+console.log(`Hello from ${process.env.MANIFEST_VERSION}`);
+if(process.env.MANIFEST_VERSION == 'v2'){
+    console.log(`Hello2`);
+}else if(process.env.MANIFEST_VERSION == 'v3'){
+    console.log(`Hello3`);
+}

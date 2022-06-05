@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
+const rimraf = require("rimraf");
 const srcDir = path.join(__dirname, "..", "src");
 module.exports = {
   entry: {
@@ -8,7 +9,7 @@ module.exports = {
     content_script: path.join(srcDir, 'content_script.ts'),
   },
   output: {
-    path: path.join(__dirname, "../dist"),
+    path: path.join(__dirname, `../dist/${process.env.MANIFEST_VERSION}`),
     filename: "[name].js",
   },
   module: {
