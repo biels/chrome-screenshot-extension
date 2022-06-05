@@ -31,8 +31,8 @@ jobs:
         with:
           type: 'zip'
           directory: ./dist
-          path: ..
-          filename: dist.zip
+          path: .
+          filename: ../dist.zip
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
