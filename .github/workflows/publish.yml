@@ -17,6 +17,7 @@ jobs:
           path: dist
 
   release_extension:
+    needs: [build_extension]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
