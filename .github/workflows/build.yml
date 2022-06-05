@@ -33,10 +33,10 @@ jobs:
         with:
           name: extension-manifest-v2
           path: dist/v2
-      - name: Download v2
+      - name: Download v3
         uses: actions/download-artifact@v3
         with:
-          name: extension-manifest-v2
+          name: extension-manifest-v3
           path: dist/v3
       - name: Zip dist v2
         uses: thedoctor0/zip-release@0.6.2
