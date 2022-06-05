@@ -13,9 +13,13 @@ let takeScreenshot = async () => {
 
 }
 
-chrome.browserAction.onClicked.addListener((tab) => {
-  takeScreenshot();
-});
+if (process.env.MANIFEST_VERSION == 'v2') {
+    chrome.browserAction.onClicked.addListener((tab) => {
+        takeScreenshot();
+    });
+} else if (process.env.MANIFEST_VERSION == 'v3') {
+
+}
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
