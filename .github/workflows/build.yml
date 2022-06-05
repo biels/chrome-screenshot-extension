@@ -40,8 +40,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          tag_name: v${{ github.run_number }}
-          release_name: Release v${{ github.run_number }}
+          tag_name: v${{ github.sha }}
+          release_name: Release ${{ github.run_number }}
           body: |
             Release ${{ github.run_number }} for ref ${{ github.ref }}
           draft: false
