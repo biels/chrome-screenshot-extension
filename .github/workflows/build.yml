@@ -30,7 +30,7 @@ jobs:
         uses: thedoctor0/zip-release@0.6.2
         with:
           type: 'zip'
-          source: ./dist
+          path: ./dist
           filename: dist.zip
       - name: Create Release
         id: create_release
