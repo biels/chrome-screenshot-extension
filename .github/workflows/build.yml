@@ -33,6 +33,7 @@ jobs:
           directory: ./dist
           path: .
           filename: ../dist.zip
+      - run: ls -la
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
