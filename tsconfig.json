@@ -5,8 +5,7 @@
     "module": "commonjs",
     "target": "es2021",
     "sourceMap": true,
-    "allowJs": true,
-    "jsx": "react",
+    "allowJs": false,
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": false,
@@ -22,6 +21,6 @@
     "pretty": true,
     "experimentalDecorators": true,
     "useDefineForClassFields": true,
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": true
   }
 }
