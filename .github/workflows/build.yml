@@ -2,7 +2,7 @@ on:
   push:
     branches:
       - 'master'
-
+name: Build
 jobs:
   build_extension:
     runs-on: ubuntu-latest
