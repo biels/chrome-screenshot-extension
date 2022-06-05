@@ -31,7 +31,7 @@ jobs:
         with:
           type: 'zip'
           directory: ./dist
-          path: .
+          path: ..
           filename: dist.zip
       - name: Create Release
         id: create_release
