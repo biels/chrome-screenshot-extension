@@ -19,9 +19,10 @@ Click on the button on the top right to take a screenshot. The screenshot will b
 
 ## How it works
 
+### Manifest v2 and v3 compatibility
+The project is compiled using [webpack](https://webpack.js.org/) and we are using the [EnvironmentPlugin](https://webpack.js.org/plugins/environment-plugin/) to set the `MANIFEST_VERSION` environment variable to `v2` or `v3` during the build process. This value is used in the code to execute the needed logic to make the extension compatible with the specified version of the manifest. We then take advantage of webpack [tree shaking](https://webpack.js.org/guides/tree-shaking/#root) to only leave the code relevant to each version of the extension in the resulting artifacts.
 
-## Limitations
-* Can only take screenshots of up to 2MB in size due to data url size limitations.
+
 
 
 ## License
