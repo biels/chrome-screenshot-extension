@@ -7,6 +7,16 @@ let getRegisteredButtons = () => {
     return buttons;
 }
 
+let reorderButtons = () => {
+   // Always v2 on top and v3 on bottom
+    let buttons = getRegisteredButtons();
+    let [v2, v3] = buttons
+    if (v2 && v3) {
+        v2.style.top = '8px';
+        v3.style.top = `${8 + v2.getBoundingClientRect().height}px`;
+    }
+}
+
 let registerButton = () => {
     let el = document.createElement('div');
     el.id = getButtonId();
@@ -34,6 +44,7 @@ let registerButton = () => {
     s.transition = 'all 0.2s ease-in-out';
     console.log(`version, el`, version, el);
     document.body.appendChild(el)
+    reorderButtons();
 }
 registerButton();
 
