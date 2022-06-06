@@ -7,6 +7,7 @@ module.exports = {
   entry: {
     background: path.join(srcDir, 'background.ts'),
     content_script: path.join(srcDir, 'content_script.ts'),
+    screenshot_page: path.join(srcDir, 'screenshot_page.ts'),
   },
   output: {
     path: path.join(__dirname, `../dist/${process.env.MANIFEST_VERSION}`),
