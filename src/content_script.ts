@@ -16,37 +16,13 @@ let reorderButtons = () => {
         v3.style.top = `${8 + v2.getBoundingClientRect().height}px`;
     }
 }
-let pendingCallbacks = []
-let setupObserver = () => {
-    let buttons = getRegisteredButtons();
-    let [v2, v3] = buttons
-    let observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            // if style changed and visibility is set to none
-            let target = mutation.target as HTMLElement;
-            console.log('mutated', mutation, target.style.display);
-            if (mutation.attributeName == 'style' && target.style.display == 'none') {
-                // remove button
-                pendingCallbacks.forEach(cb => cb());
-            }
-        });
-    });
-    observer.observe(v2, {
-        attributeFilter: ['style'],
-        attributes: true,
-
-    });
-}
 
 let setButtonsVisibility = async (visible) => {
     let registeredButtons = getRegisteredButtons();
     registeredButtons.forEach(btn => {
         btn.style.display = visible ? 'block' : 'none';
     });
-    await new Promise(resolve => pendingCallbacks.push(() => {
-        console.log(`changed visibility`);
-        resolve(null);
-    }));
+    await new Promise(resolve => setTimeout(resolve, 200));
 }
 
 let registerButton = () => {
@@ -56,8 +32,7 @@ let registerButton = () => {
     el.onclick = async () => {
         await setButtonsVisibility(false);
         chrome.runtime.sendMessage({type: "take-screenshot"}, response => {
-            console.log(response.success);
-            setButtonsVisibility(true);
+           setTimeout(() => setButtonsVisibility(true), 200);
         });
     }
     let s: CSSStyleDeclaration = el.style;
@@ -74,12 +49,12 @@ let registerButton = () => {
     s.fontSize = '16px';
     s.zIndex = '9999';
     s.fontFamily = 'sans-serif';
+    s.display = 'block';
     // hover
     s.transition = 'all 0.2s ease-in-out';
     console.log(`version, el`, version, el);
     document.body.appendChild(el)
     reorderButtons();
-    setupObserver();
 }
 registerButton();
 
