@@ -1,7 +1,14 @@
+let version = process.env.MANIFEST_VERSION;
+
+let getButtonId = (v = version) => `btn-screenshot-${v}`;
+
+let getRegisteredButtons = () => {
+    let buttons = ['v2', 'v3'].map((v) => getButtonId(v)).map((id) => document.getElementById(id));
+    return buttons;
+}
+
 let registerButton = () => {
     let el = document.createElement('div');
-    let version = process.env.MANIFEST_VERSION;
-    let getButtonId = (v = version) => `btn-screenshot-${v}`;
     el.id = getButtonId();
     el.innerHTML = `Take screenshot (${version})`;
     el.onclick = () => {
@@ -10,8 +17,8 @@ let registerButton = () => {
         });
     }
     let s: CSSStyleDeclaration = el.style;
-    let buttons = ['v2', 'v3'].map((v) => getButtonId(v)).map((id) => document.getElementById(id));
-    let foundButtons = buttons.filter(a => a);
+
+    let foundButtons = getRegisteredButtons().filter(a => a);
     let existingButtonHeight = foundButtons.reduce((acc, btn) => acc + (btn.getBoundingClientRect().height || 0), 0);
     s.position = 'fixed';
     s.top = `${8 + existingButtonHeight}px`;
@@ -21,8 +28,11 @@ let registerButton = () => {
     s.backgroundColor = version != 'v2' ? '#82DBD8' : '#B3E8E5';
     s.color = 'black';
     s.fontSize = '16px';
-    s.zIndex = '99';
+    s.zIndex = '9999';
     s.fontFamily = 'sans-serif';
+    // hover
+    s.transition = 'all 0.2s ease-in-out';
+    console.log(`version, el`, version, el);
     document.body.appendChild(el)
 }
 registerButton();

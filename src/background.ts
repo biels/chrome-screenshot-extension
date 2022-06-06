@@ -3,11 +3,11 @@
 // });
 
 let takeScreenshot = async () => {
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
         let current = tabs[0];
-        chrome.tabs.captureVisibleTab(current.windowId, { format: "png" }, (dataUrl) => {
+        chrome.tabs.captureVisibleTab(current.windowId, {format: "png"}, (dataUrl) => {
             console.log(`dataUrl`, dataUrl);
-            let newTab = chrome.tabs.create({ url: dataUrl, active: true });
+            let newTab = chrome.tabs.create({url: dataUrl, active: true});
         })
     });
 
@@ -22,8 +22,8 @@ if (process.env.MANIFEST_VERSION == 'v2') {
 }
 
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-      if (request.type == "take-screenshot"){
+  function (request, sender, sendResponse) {
+      if (request.type == "take-screenshot") {
           takeScreenshot();
           sendResponse({success: true});
       }
