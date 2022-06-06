@@ -8,7 +8,7 @@ let getRegisteredButtons = () => {
 }
 
 let reorderButtons = () => {
-   // Always v2 on top and v3 on bottom
+    // Always v2 on top and v3 on bottom
     let buttons = getRegisteredButtons();
     let [v2, v3] = buttons
     if (v2 && v3) {
@@ -16,15 +16,25 @@ let reorderButtons = () => {
         v3.style.top = `${8 + v2.getBoundingClientRect().height}px`;
     }
 }
+let setButtonsVisibility = (visible) => {
+    let registeredButtons = getRegisteredButtons();
+    registeredButtons.forEach(btn => {
+        btn.style.display = visible ? 'block' : 'none';
+    });
+}
 
 let registerButton = () => {
     let el = document.createElement('div');
     el.id = getButtonId();
     el.innerHTML = `Take screenshot (${version})`;
     el.onclick = () => {
-        chrome.runtime.sendMessage({type: "take-screenshot"}, response => {
-            console.log(response.success);
-        });
+        setButtonsVisibility(false);
+        setTimeout(() => {
+            chrome.runtime.sendMessage({type: "take-screenshot"}, response => {
+                console.log(response.success);
+                setButtonsVisibility(true);
+            });
+        }, 10)
     }
     let s: CSSStyleDeclaration = el.style;
 
@@ -50,8 +60,8 @@ registerButton();
 
 // alert(`Hello from ${process.env.MANIFEST_VERSION}`);
 console.log(`Hello from ${process.env.MANIFEST_VERSION}`);
-if(process.env.MANIFEST_VERSION == 'v2'){
+if (process.env.MANIFEST_VERSION == 'v2') {
     console.log(`Hello2`);
-}else if(process.env.MANIFEST_VERSION == 'v3'){
+} else if (process.env.MANIFEST_VERSION == 'v3') {
     console.log(`Hello3`);
 }
