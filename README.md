@@ -22,6 +22,15 @@ Click on the button on the top right to take a screenshot. The screenshot will b
 ## How it works
 ### Screenshot taking
 This extension uses the [chrome.tabs.captureVisibleTab](https://developer.chrome.com/docs/extensions/reference/tabs/#method-captureVisibleTab) method from the chrome API to take a screenshot of the visible part of the tab.
+
+### Architecture
+When the "Take screenshot" button is clicked, the extension will:
+1. Send a messsage to the background script with the type `take-screenshot`
+2. The background script will make a call to the screen capturing API which returns the screenshot data
+3. The background script opens a new tab and sends the screenshot data using a different method depending on the manifest version
+   1. In MV2: The getViews function is used to get the window object of the new tab and img.src is set to the data url directly
+   2. In MV3: The screenshot data is passed as a message to the new tab using the `chrome.tabs.sendMessage` method and the new tab updates the DOM locally when the message is received
+
 ### Manifest v2 and v3 compatibility
 The project is compiled using [webpack](https://webpack.js.org/) and we are using the [EnvironmentPlugin](https://webpack.js.org/plugins/environment-plugin/) to set the `MANIFEST_VERSION` environment variable to `v2` or `v3` during the build process. This value is used in the code to execute the needed logic to make the extension compatible with the specified version of the manifest. We then take advantage of webpack [tree shaking](https://webpack.js.org/guides/tree-shaking/#root) to only leave the code relevant to each version of the extension in the resulting artifacts.
 
