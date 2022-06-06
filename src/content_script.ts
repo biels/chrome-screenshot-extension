@@ -16,25 +16,49 @@ let reorderButtons = () => {
         v3.style.top = `${8 + v2.getBoundingClientRect().height}px`;
     }
 }
-let setButtonsVisibility = (visible) => {
+let pendingCallbacks = []
+let setupObserver = () => {
+    let buttons = getRegisteredButtons();
+    let [v2, v3] = buttons
+    let observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            // if style changed and visibility is set to none
+            let target = mutation.target as HTMLElement;
+            console.log('mutated', mutation, target.style.display);
+            if (mutation.attributeName == 'style' && target.style.display == 'none') {
+                // remove button
+                pendingCallbacks.forEach(cb => cb());
+            }
+        });
+    });
+    observer.observe(v2, {
+        attributeFilter: ['style'],
+        attributes: true,
+
+    });
+}
+
+let setButtonsVisibility = async (visible) => {
     let registeredButtons = getRegisteredButtons();
     registeredButtons.forEach(btn => {
         btn.style.display = visible ? 'block' : 'none';
     });
+    await new Promise(resolve => pendingCallbacks.push(() => {
+        console.log(`changed visibility`);
+        resolve(null);
+    }));
 }
 
 let registerButton = () => {
     let el = document.createElement('div');
     el.id = getButtonId();
     el.innerHTML = `Take screenshot (${version})`;
-    el.onclick = () => {
-        setButtonsVisibility(false);
-        setTimeout(() => {
-            chrome.runtime.sendMessage({type: "take-screenshot"}, response => {
-                console.log(response.success);
-                setButtonsVisibility(true);
-            });
-        }, 10)
+    el.onclick = async () => {
+        await setButtonsVisibility(false);
+        chrome.runtime.sendMessage({type: "take-screenshot"}, response => {
+            console.log(response.success);
+            setButtonsVisibility(true);
+        });
     }
     let s: CSSStyleDeclaration = el.style;
 
@@ -55,6 +79,7 @@ let registerButton = () => {
     console.log(`version, el`, version, el);
     document.body.appendChild(el)
     reorderButtons();
+    setupObserver();
 }
 registerButton();
 
