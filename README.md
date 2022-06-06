@@ -14,5 +14,16 @@ This is an example extension that allows you to take a screenshot from your brow
 
 * Compatible with manifest v2 and v3
 
+## Usage
+Click on the button on the top right to take a screenshot. The screenshot will be opened in a new tab.
 
+## How it works
+
+
+## Limitations
+* Can only take screenshots of up to 2MB in size due to data url size limitations.
+
+
+## License
+MIT
 
