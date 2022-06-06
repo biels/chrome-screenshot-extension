@@ -47,7 +47,7 @@ let registerButton = () => {
     s.backgroundColor = version != 'v2' ? '#82DBD8' : '#B3E8E5';
     s.color = 'black';
     s.fontSize = '16px';
-    s.zIndex = '9999';
+    s.zIndex = '99999';
     s.fontFamily = 'sans-serif';
     s.display = 'block';
     // hover
