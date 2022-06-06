@@ -8,7 +8,7 @@ let getRegisteredButtons = () => {
 }
 
 let reorderButtons = () => {
-    // Always v2 on top and v3 on bottom
+    // Always v2 on top and v3 below
     let buttons = getRegisteredButtons();
     let [v2, v3] = buttons
     if (v2 && v3) {
@@ -19,7 +19,7 @@ let reorderButtons = () => {
 
 let setButtonsVisibility = async (visible) => {
     let registeredButtons = getRegisteredButtons();
-    registeredButtons.forEach(btn => {
+    registeredButtons.filter(a => a).forEach(btn => {
         btn.style.display = visible ? 'block' : 'none';
     });
     await new Promise(resolve => setTimeout(resolve, 200));
